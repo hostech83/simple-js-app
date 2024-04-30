@@ -1,11 +1,8 @@
-let myName = 'Bob';
-document.write(myName);
-myName = 'John Doe';
-document.write(myName);
+alert('Hello world');
 
 
+// Define the variable favoriteFood and assign it a value
+var favoriteFood = "Pizza";
 
-let size = 100;
-let doubleSize = size * 2;
-let minSize = (doubleSize * 2) - (size / 2);
-document.write(minSize);
+// Display the value of favoriteFood on the index page
+document.write("My favorite food is: " + favoriteFood);
