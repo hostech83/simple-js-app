@@ -1,15 +1,20 @@
-alert('Hello world');
+var pokemonList = [
+    {
+        name: "Bulbasaur",
+        height: 7,
+        types: ['Grass', 'Poison']
+    },
+    {
+        name: "Charizard",
+        height: 6,
+        types: ['Fire']
+    },
+    {
+        name: "Squirtle",
+        height: 5,
+        types: ['Water']
+    }
+];
 
-// Define the variable favoriteFood and assign it a value
-var favoriteFood = "Pizza";
-
-
-// Define the variable favoriteFood and assign it a value
-var favoriteFood = "Pizza";
-
-// Display the value of favoriteFood on the index page
-document.write("My favorite food is: " + favoriteFood);
-// Display the value of favoriteFood on the index page
-document.write("My favorite food is: " + favoriteFood);
-
-
+// Now pokemonList contains Pokémon data
+console.log(pokemonList);
