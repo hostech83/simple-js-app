@@ -1,4 +1,6 @@
-var pokemonList = [
+let pokemonRepository = (function() {
+    let pokemonList = [
+        //Pokemon data here
     {
         name: "Bulbasaur",
         height: 7,
@@ -15,30 +17,19 @@ var pokemonList = [
         types: ['Water']
     }
 ];
+    return {
+        getAll: function() {
+            return pokemonList;
+        },
+  
+        add: function(pokemon) {
+            pokemonList.push(pokemon);
+        }
+        
+    }
+});
 
-
-// Iterate over each item in pokemonList using a for loop
-
-for (var i = 0; i < pokemonList.length; i++) {
-
-    // Access the current Pokemon object in the array
-
-    var pokemon = pokemonList[i];
-
-    // Construct the string to be written to the DOM
-
-    var pokemonInfo = pokemon.name + " (height: " + pokemon.height + ")";
-
-    // Check if height is above certain threshold
-
-if (pokemon.height > 6) {
-
-    (pokemonInfo += "-Wow, that's really big!")
-
-     }
-
-    // Use document.write() to write the Pokémon name and height to the DOM
-    
-    document.write(pokemonInfo + "<br>");
-} 
+pokemonRepository.gettAll().ForEach(function(pokemon) {
+    document.write(pokemon.name + "(height: " + pokemon.height +")<br>");
+})
 
