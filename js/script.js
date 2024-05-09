@@ -1,6 +1,5 @@
 let pokemonRepository = (function() {
     let pokemonList = [
-        //Pokemon data here
     {
         name: "Bulbasaur",
         height: 7,
@@ -26,10 +25,10 @@ let pokemonRepository = (function() {
             pokemonList.push(pokemon);
         }
         
-    }
-});
+    },
+})();
 
-pokemonRepository.gettAll().ForEach(function(pokemon) {
-    document.write(pokemon.name + "(height: " + pokemon.height +")<br>");
+pokemonRepository.getAll().forEach(function(pokemon) {
+    document.write(pokemon.name + " (height: " + pokemon.height +")<br>");
 })
 
