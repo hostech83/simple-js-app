@@ -1,0 +1,21 @@
+.button-class {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.button-class:hover {
+  background-color: #45a049;
+}
+
+.button-class:active {
+  background-color: #3e8e41;
+}
