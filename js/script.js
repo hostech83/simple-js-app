@@ -1,8 +1,11 @@
+
+
+
 let pokemonRepository = (function () {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-  // Function to add a Pokémons to the list
+  // Function to add a Pokémon to the list
   function add(pokemon) {
     if (
       typeof pokemon === "object" &&
@@ -15,7 +18,7 @@ let pokemonRepository = (function () {
     }
   }
   
-  // Function to get all Pokémons in the list
+  // Function to get all Pokémon in the list
   function getAll() {
     return pokemonList;
   }
@@ -74,7 +77,8 @@ let pokemonRepository = (function () {
       .then(function (details) {
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
-        item.types = details.types;
+        item.types = details.types.map((type) => type.type.name);
+        item.abilities = details.abilities.map((ability) => ability.ability.name);
         // Hide loading message after details are loaded
         hideLoadingMessage();
       })
@@ -85,25 +89,62 @@ let pokemonRepository = (function () {
       });
   }
 
-  // Function to show details of a Pokémon
+  // Function to show details of a Pokémon in a modal
   function showDetails(item) {
-    pokemonRepository.loadDetails(item).then(function () {
-      console.log(item);
+    loadDetails(item).then(function () {
+      let modalContainer = document.querySelector('.modal-container');
+      let modalName = document.querySelector('#modal-name');
+      let modalHeight = document.querySelector('#modal-height');
+      let modalTypes = document.querySelector('#modal-types');
+      let modalAbilities = document.querySelector('#modal-abilities');
+      let modalImage = document.querySelector('#modal-image');
+
+      modalName.textContent = item.name;
+      modalHeight.textContent = `Height: ${item.height}`;
+      modalTypes.textContent =`Types: ${item.types}`;
+      modalAbilities.textContent =`Abilities: ${item.abilities}`;
+      modalImage.src = item.imageUrl;
+
+      modalContainer.style.display = 'block';
     });
   }
 
+  // Close modal when clicking the close button
+  document.querySelector('.close-button').addEventListener('click', function() {
+    hideModal();
+  });
+  
+  // Close modal when pressing Escape key
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      hideModal();
+    }
+  });
+
+  // Close modal when clicking outside the modal content
+  window.addEventListener('click', function(event) {
+    let modalContainer = document.querySelector('.modal-container');
+    if (event.target === modalContainer) {
+      hideModal();
+    }
+  });
+
   // Function to show the loading message
   function showLoadingMessage() {
-
     // Display loading message on the page
     document.querySelector(".loading-message").innerText = "Loading...";
   }
 
   // Function to hide the loading message
   function hideLoadingMessage() {
-
     // Hide loading message from the page
     document.querySelector(".loading-message").innerText = "";
+  }
+
+  // Function to hide the modal
+  function hideModal() {
+    let modalContainer = document.querySelector('.modal-container');
+    modalContainer.style.display = 'none';
   }
 
   // Return functions
