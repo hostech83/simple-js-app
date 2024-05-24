@@ -1,45 +1,63 @@
-
-
-
 let pokemonRepository = (function () {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-  // Function to add a Pokémon to the list
   function add(pokemon) {
-    if (
-      typeof pokemon === "object" &&
-      "name" in pokemon &&
-      "detailsUrl" in pokemon
-    ) {
+    if (typeof pokemon === "object" && "name" in pokemon && "detailsUrl" in pokemon) {
       pokemonList.push(pokemon);
     } else {
       console.log("pokemon is not correct");
     }
   }
-  
-  // Function to get all Pokémon in the list
+
   function getAll() {
     return pokemonList;
   }
-  
-  // Function to add a list item Pokémon
-  function addListItem(pokemon){
-    let pokemonList = document.querySelector(".pokemon-list");
-    let listItem = document.createElement("li");
+
+  function addListItem(pokemon) {
+    let pokemonContainer = document.querySelector(".pokemon-container");
+
+    let card = document.createElement("div");
+    card.classList.add('col-sm-6', 'col-md-4', 'col-lg-3', 'mb-4');
+
+    let cardInner = document.createElement("div");
+    cardInner.classList.add('card');
+
+    let cardImageFront = document.createElement("img");
+    cardImageFront.classList.add('card-img-top');
+    cardImageFront.alt = pokemon.name;
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add('card-body');
+
+    let cardTitle = document.createElement("h5");
+    cardTitle.classList.add('card-title');
+    cardTitle.innerText = pokemon.name;
+
     let button = document.createElement("button");
-    button.innerText = pokemon.name;
-    button.classList.add("button-class");
-    listItem.appendChild(button);
-    pokemonList.appendChild(listItem);
-    button.addEventListener('click', function() {
+    button.innerText = "Details";
+    button.classList.add('btn', 'btn-primary');
+    button.setAttribute('type', 'button');
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#pokemonModal');
+
+    button.addEventListener('click', function () {
       showDetails(pokemon);
+    });
+
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(button);
+    cardInner.appendChild(cardImageFront);
+    cardInner.appendChild(cardBody);
+    card.appendChild(cardInner);
+    pokemonContainer.appendChild(card);
+
+    loadDetails(pokemon).then(function () {
+      cardImageFront.src = pokemon.imageUrlFront;
     });
   }
 
-  // Function to load the list of Pokémon from the API
   function loadList() {
-    // Show loading message
     showLoadingMessage();
 
     return fetch(apiUrl)
@@ -54,19 +72,15 @@ let pokemonRepository = (function () {
           };
           add(pokemon);
         });
-        // Hide loading message after data is loaded
         hideLoadingMessage();
       })
       .catch(function (e) {
         console.error(e);
-        // Hide loading message in case of error
         hideLoadingMessage();
       });
   }
 
-  // Function to load details of a Pokémon
   function loadDetails(item) {
-    // Show loading message
     showLoadingMessage();
 
     let url = item.detailsUrl;
@@ -75,79 +89,56 @@ let pokemonRepository = (function () {
         return response.json();
       })
       .then(function (details) {
-        item.imageUrl = details.sprites.front_default;
+        item.imageUrlFront = details.sprites.front_default;
+        item.imageUrlBack = details.sprites.back_default;
         item.height = details.height;
         item.types = details.types.map((type) => type.type.name);
         item.abilities = details.abilities.map((ability) => ability.ability.name);
-        // Hide loading message after details are loaded
         hideLoadingMessage();
       })
       .catch(function (e) {
         console.error(e);
-        // Hide loading message in case of error
         hideLoadingMessage();
       });
   }
 
-  // Function to show details of a Pokémon in a modal
   function showDetails(item) {
     loadDetails(item).then(function () {
-      let modalContainer = document.querySelector('.modal-container');
-      let modalName = document.querySelector('#modal-name');
-      let modalHeight = document.querySelector('#modal-height');
-      let modalTypes = document.querySelector('#modal-types');
-      let modalAbilities = document.querySelector('#modal-abilities');
-      let modalImage = document.querySelector('#modal-image');
-
-      modalName.textContent = item.name;
-      modalHeight.textContent = `Height: ${item.height}`;
-      modalTypes.textContent =`Types: ${item.types}`;
-      modalAbilities.textContent =`Abilities: ${item.abilities}`;
-      modalImage.src = item.imageUrl;
-
-      modalContainer.style.display = 'block';
+      showModal(item.name, `Height: ${item.height}`, `Types: ${item.types.join(', ')}`, `Abilities: ${item.abilities.join(', ')}`, item.imageUrlFront, item.imageUrlBack);
     });
   }
 
-  // Close modal when clicking the close button
-  document.querySelector('.close-button').addEventListener('click', function() {
-    hideModal();
-  });
-  
-  // Close modal when pressing Escape key
-  window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      hideModal();
-    }
-  });
+  function showModal(title, height, types, abilities, imageUrlFront, imageUrlBack) {
+    let modalTitle = document.querySelector('.modal-title');
+    let modalBody = document.querySelector('.modal-body');
 
-  // Close modal when clicking outside the modal content
-  window.addEventListener('click', function(event) {
-    let modalContainer = document.querySelector('.modal-container');
-    if (event.target === modalContainer) {
-      hideModal();
-    }
-  });
+    modalTitle.textContent = title;
 
-  // Function to show the loading message
+    modalBody.innerHTML = `
+      <p>${height}</p>
+      <p>${types}</p>
+      <p>${abilities}</p>
+      <div class="row">
+        <div class="col-6">
+          <img src="${imageUrlFront}" class="img-fluid" alt="${title} front">
+        </div>
+        <div class="col-6">
+          <img src="${imageUrlBack}" class="img-fluid" alt="${title} back">
+        </div>
+      </div>
+    `;
+
+    $('#pokemonModal').modal('show');
+  }
+
   function showLoadingMessage() {
-    // Display loading message on the page
     document.querySelector(".loading-message").innerText = "Loading...";
   }
 
-  // Function to hide the loading message
   function hideLoadingMessage() {
-    // Hide loading message from the page
     document.querySelector(".loading-message").innerText = "";
   }
 
-  // Function to hide the modal
-  function hideModal() {
-    let modalContainer = document.querySelector('.modal-container');
-    modalContainer.style.display = 'none';
-  }
-
-  // Return functions
   return {
     add: add,
     getAll: getAll,
@@ -158,9 +149,7 @@ let pokemonRepository = (function () {
   };
 })();
 
-// Load the list of Pokémon
 pokemonRepository.loadList().then(function () {
-  // Add list items for each Pokémon
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
   });
