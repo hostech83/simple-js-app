@@ -1,11 +1,12 @@
+/* Style the body*/
 body {
-  background-color: #f8f9fa;
+  background-color: #d8ef56;
 }
 
 .navbar {
   margin-bottom: 20px;
 }
-
+/* Style Pokemon Card */
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -47,3 +48,56 @@ body {
 .modal-body .row {
   margin-top: 15px;
 }
+
+
+/* Style for the search form */
+.navbar .form-inline .form-control {
+  width: 200px;
+}
+
+.navbar .form-inline .btn-outline-light {
+  color: #fff;
+  border-color: #fff;
+}
+
+.navbar .form-inline .btn-outline-light:hover {
+  color: #000;
+  background-color: #ffdd57;
+  border-color: #ffdd57;
+}
+
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-size: 1.1rem;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #ffdd57;
+}
+
+/* style media Query to fit all screen sizes */
+@media (min-width: 992px) {
+  .navbar .form-inline {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar .form-inline {
+    margin-bottom: 10px;
+  }
+  .navbar .form-inline .form-control {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  .navbar .form-inline .btn {
+    width: 100%;
+  }
+}
+
+
+

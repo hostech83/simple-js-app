@@ -6,7 +6,7 @@ let pokemonRepository = (function () {
     if (typeof pokemon === "object" && "name" in pokemon && "detailsUrl" in pokemon) {
       pokemonList.push(pokemon);
     } else {
-      console.log("pokemon is not correct");
+      console.error("Invalid Pokémon object:", pokemon);
     }
   }
 
@@ -75,7 +75,7 @@ let pokemonRepository = (function () {
         hideLoadingMessage();
       })
       .catch(function (e) {
-        console.error(e);
+        console.error("Failed to load Pokémon list:", e);
         hideLoadingMessage();
       });
   }
@@ -97,7 +97,7 @@ let pokemonRepository = (function () {
         hideLoadingMessage();
       })
       .catch(function (e) {
-        console.error(e);
+        console.error("Failed to load Pokémon details:", e);
         hideLoadingMessage();
       });
   }
@@ -126,8 +126,8 @@ let pokemonRepository = (function () {
           <img src="${imageUrlBack}" class="img-fluid" alt="${title} back">
         </div>
       </div>
-    `;
-
+    
+      `;
     $('#pokemonModal').modal('show');
   }
 
@@ -149,8 +149,10 @@ let pokemonRepository = (function () {
   };
 })();
 
-pokemonRepository.loadList().then(function () {
-  pokemonRepository.getAll().forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
+document.addEventListener("DOMContentLoaded", function () {
+  pokemonRepository.loadList().then(function () {
+    pokemonRepository.getAll().forEach(function (pokemon) {
+      pokemonRepository.addListItem(pokemon);
+    });
   });
 });
