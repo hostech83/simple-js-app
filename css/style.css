@@ -68,7 +68,11 @@ body {
 
 
 .navbar-brand {
-  font-weight: bold;
+  font-weight: bold; 
+}
+
+.navbar-expand-lg .navbar-brand  {
+  color: #ffdd57;
 }
 
 .navbar-nav .nav-item .nav-link {
@@ -77,6 +81,10 @@ body {
 
 .navbar-nav .nav-item .nav-link:hover {
   color: #ffdd57;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #fff;
 }
 
 /* style media Query to fit all screen sizes */
