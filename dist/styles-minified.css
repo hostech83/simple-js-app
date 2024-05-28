@@ -1,142 +1,104 @@
-/* Style the body*/
 body {
   background-color: #d8ef56;
 }
-
 .navbar {
   margin-bottom: 20px;
 }
-
-/* Style navbar */
 .navbar-brand {
   font-size: 40px;
-}
-
-.navbar-brand {
   font-weight: bold;
 }
-
 .navbar-expand-lg .navbar-brand {
   color: #ffdd57;
 }
-
 .navbar-nav .nav-item .nav-link {
   font-size: 1.1rem;
+  color: #fff;
 }
-
 .navbar-nav .nav-item .nav-link:hover {
   color: #ffdd57;
 }
-
-.navbar-nav .nav-item .nav-link {
-  color: #fff;
-}
-
-/* Style Pokemon Card */
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 2px solid rgb(11, 10, 10);
+  border: 2px solid #0b0a0a;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .card-body {
   text-align: center;
 }
-
 .card-body .btn {
   margin-top: 10px;
 }
-
 .card:hover {
   transform: scale(1.06);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-
 .card-img-top {
   height: 120px;
   height: auto;
 }
-
 .card-title {
   font-size: 1.25rem;
   text-align: center;
   margin-bottom: 10px;
 }
-
-/* Style loadind message */
 .loading-message {
   text-align: center;
   font-size: 1.5rem;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
-/* Style modal */
 .modal-body img {
   width: 50%;
   height: 50%;
 }
-
 .modal-body p {
   font-size: 1.1rem;
   margin-bottom: 15px;
 }
-
 .modal-body .row {
   margin-top: 15px;
 }
-
 .modal-dialog {
   width: 40%;
 }
 .modal-body {
   color: #de339c;
 }
-
 .modal-header {
   color: #de339c;
 }
-
 .modal-content-top {
   text-align: center;
   padding: 20px;
   background-color: var(--primary-color);
 }
-
 .modal-content-top img {
   max-width: 100%;
   height: auto;
 }
-
 .modal-content-bottom {
   padding: 20px;
   background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
 }
-
-/* Style for the search form */
 .navbar .form-inline .form-control {
   width: 200px;
 }
-
 .navbar .form-inline .btn-outline-light {
   color: #fff;
   border-color: #fff;
 }
-
 .navbar .form-inline .btn-outline-light:hover {
   color: #000;
   background-color: #d8ef56;
   border-color: #ffdd57;
 }
-
-/* style media Query to fit all screen sizes */
 @media (min-width: 992px) {
   .navbar .form-inline {
     margin-left: auto;
   }
 }
-
 @media (max-width: 991.98px) {
   .navbar .form-inline {
     margin-bottom: 10px;
